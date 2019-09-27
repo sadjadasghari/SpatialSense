@@ -63,7 +63,7 @@ def test(split, model, criterion, loader, epoch, args):
     predictions = []
 
     with torch.no_grad():
-        bar = progressbar.ProgressBar(max_value=len(loader))
+        bar = progressbar.ProgressBar(maxval=len(loader))  # max_value
         for idx, data_batch in enumerate(loader):
             _ids.extend(data_batch['_id'])
             subj_batch_var = data_batch['subject']['bbox']
@@ -84,7 +84,7 @@ def test(split, model, criterion, loader, epoch, args):
                 loss_batch_var = criterion(output_var, label_batch_var)
                 loss_batch = loss_batch_var.item()
                 loss += (len(data_batch['label']) * loss_batch)
-
+            bar.start()
             bar.update(idx)
 
     if loss != 0:
