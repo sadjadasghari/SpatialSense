@@ -24,7 +24,7 @@ class SpatialDataset(Dataset):
         self.split = split
         self.load_image = load_image
         self.args = args
-
+        # args.datapath = '/data/datasets/SpatialSense/images/'
         self.annotations = []
         for img in json.load(open(args.datapath)):
             if img['split'] in split.split('_'):
@@ -201,7 +201,7 @@ class SpatialDataset(Dataset):
         return bbox
 
 
-    def create_dataloader(split, load_image, args):
+def create_dataloader(split, load_image, args):
         dataset = SpatialDataset(split, load_image, args)
         return DataLoader(dataset, 
                             args.batchsize, 

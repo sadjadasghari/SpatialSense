@@ -22,7 +22,7 @@ def train(model, criterion, optimizer, loader, epoch, args):
     acc = 0.
     num_samples = 0
 
-    bar = progressbar.ProgressBar(max_value=len(loader))
+    bar = progressbar.ProgressBar(maxval=len(loader))
     for idx, data_batch in enumerate(loader):
         subj_batch_var = data_batch['subject']['bbox']
         obj_batch_var = data_batch['object']['bbox']
@@ -45,7 +45,7 @@ def train(model, criterion, optimizer, loader, epoch, args):
         optimizer.zero_grad()
         loss_batch_var.backward()
         optimizer.step()
- 
+        bar.start()
         bar.update(idx)
 
     loss /= num_samples
